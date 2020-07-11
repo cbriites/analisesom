@@ -25,14 +25,19 @@
   	 <button id="stopButton" disabled>Parar</button>
     </div>
 
-    <script src="https://unpkg.com/wavesurfer.js"></script>
-    <div id="waveform"></div>
-    <div id="formats">Format: Começar a gravar para guardar a gravação</div>
+    <div id="audio-spectrum"></div>
+    <input type="button" id="btn-play" value="Play" disabled = "disabled"/>
+    <input type="button" id="btn-pause" value="Pause" disabled = "disabled"/>
+    <input type="button" id="btn-stop" value="Stop" disabled="disabled"/>
+     <div id="formats">Format: Começar a gravar para guardar a gravação</div>
   	<p><strong>Gravações:</strong></p>
   	<ol id="recordingsList"></ol>
-    <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
+
+    <script src="https://unpkg.com/wavesurfer.js"></script>
+    <div id="waveform"></div>
+       <!-- inserting these scripts at the end to be able to use all the elements in the DOM -->
   	<script src="https://cdn.rawgit.com/mattdiamond/Recorderjs/08e7abd9/dist/recorder.js"></script>
-  	<script src="app.js"></script>
+  	<script src="bundle.js"></script>
   </body>
 
 

@@ -114,7 +114,67 @@ function stopRecording() {
 	rec.exportWAV(createDownloadLink);
 }
 
-function createDownloadLink(blob) {
+
+//------------------------------------------Espetro e Download-------------------------
+
+var WaveSurfer = require("wavesurfer.js");
+
+
+
+
+var buttons = {
+	play: document.getElementById("btn-play"),
+	pause: document.getElementById("btn-pause"),
+	stop: document.getElementById("btn-stop")
+};
+
+
+
+ 
+var Spectrum = WaveSurfer.create({
+    container: '#audio-spectrum',
+    progressColor: 'purple'
+});
+
+buttons.stop.addEventListener("click", function(){
+	Spectrum.stop();
+	buttons.pause.disabled = true;
+	buttons.play.disabled = false;
+	buttons.stop.disabled = true;
+}, false);
+
+buttons.play.addEventListener("click", function(){
+	Spectrum.play();
+	buttons.stop.disabled = false;
+	buttons.pause.disabled = false;
+	buttons.play.disabled = true;
+}, false);
+
+buttons.pause.addEventListener("click", function(){
+	Spectrum.pause();
+	buttons.pause.disabled = true;
+	buttons.play.disabled = false;
+}, false);
+
+
+
+Spectrum.on('ready', function(){
+	buttons.play.disabled = false;
+});
+
+window.addEventListener("resize", function(){
+	var currentProgress = Spectrum.getCurrentTime() / Spectrum.getDuration();
+	Spectrum.empty();
+	Spectrum.drawBuffer();
+	Spectrum.seekTo(currentProgress);
+	buttons.pause.disabled = true;
+	buttons.play.disabled = false;
+	buttons.stop.disabled = false;
+}, false);
+
+
+
+createDownloadLink = function(blob) {
 	
 	var url = URL.createObjectURL(blob);
 	var au = document.createElement('audio');
@@ -123,6 +183,7 @@ function createDownloadLink(blob) {
 
 	//name of .wav file to use during upload and download (without extendion)
 	var filename = new Date().toISOString();
+	console.log(filename, '1');
 
 	//add controls to the <audio> element
 	au.controls = true;
@@ -147,20 +208,30 @@ function createDownloadLink(blob) {
 	//upload.href="#";
 	//upload.innerHTML = "Upload";
 	//upload.addEventListener("click", function(event){
-		//  var xhr=new XMLHttpRequest();
-		 // xhr.onload=function(e) {
-		   //   if(this.readyState === 4) {
-		     //     console.log("Server returned: ",e.target.responseText);
-		     // }
-		 // };
-		 // var fd=new FormData();
-		  //fd.append("audio_data",blob, filename);
-		  //xhr.open("POST","upload.php",true);
-		 // xhr.send(fd);
+	//	  var xhr=new XMLHttpRequest();
+	//	  xhr.onload=function(e) {
+	//	      if(this.readyState === 4) {
+	//	          console.log("Server returned: ",e.target.responseText);
+	//	      }
+	//	  };
+	//	  var fd=new FormData();
+	//	  fd.append("audio_data",blob, filename);
+	//	  xhr.open("POST","upload.php",true);
+	//	  xhr.send(fd);
 	//})
 	//li.appendChild(document.createTextNode (" "))//add a space in between
 	//li.appendChild(upload)//add the upload link to li
 
 	//add the li element to the ol
 	recordingsList.appendChild(li);
+	
+
+
+	var file = link;
+	console.log(file,'2');
+	Spectrum.load(file);
 }
+
+
+
+
