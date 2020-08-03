@@ -1,0 +1,29 @@
+<html>
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Music Visualizer</title>
+    <link rel="stylesheet" href="style.css">
+      </head>
+    <script src="bower_packages/numjs/dist/numjs.min.js"></script>
+    <script src="https://unpkg.com/mathjs/dist/math.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/nicolaspanel/numjs@0.15.1/dist/numjs.min.js"></script>
+    <script src="https://d3js.org/d3.v5.min.js"></script>
+   
+  <body>
+    <input type="file" id="file-input" accept="audio/*,video/*,image/*" />
+    
+    <canvas id="myCanvas" style="border:1px solid #d3d3d3;">
+Your browser does not support the HTML5 canvas tag.</canvas>
+
+    <canvas id="myCanvas2" style="border:1px solid #d3d3d3;">
+
+Your browser does not support the HTML5 canvas tag.</canvas>
+    <script src="script_certo.js"></script>
+
+    <h3 id="name"></h3>
+    <audio id="audio" controls></audio>
+    <div id="background"></div>
+  </body>
+</html>
